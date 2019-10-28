@@ -1,0 +1,24 @@
+{
+  "name": "lab8",
+  "version": "1.0.0",
+  "description": "cst336 lab8",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.7.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XYIAN/kydi19-lab8.git"
+  },
+  "bugs": {
+    "url": "https://github.com/XYIAN/kydi19-lab8/issues"
+  },
+  "homepage": "https://github.com/XYIAN/kydi19-lab8#readme"
+}
