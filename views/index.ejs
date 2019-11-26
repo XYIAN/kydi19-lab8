@@ -5,7 +5,7 @@
   <title>US Quiz (Express)</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+  <!--<script src="/public/js/functions.js"></script>-->
   <script>
     $(document).ready(function(){
 
@@ -14,6 +14,124 @@
       	$(".q5choice").css("background-color",""); //resets background color
       	$(this).css("background-color","rgb(255, 255, 0)"); 
       })
+      $("#submitButton").on("click", function(){
+        $.ajax({
+
+        method: "GET",
+        url: "/gradeQuiz",
+        dataType: "json",
+        data: 
+        {
+               "q1": $("#q1").val(),
+               "q2": $("#q2").val(),
+               "q3": $("#q3").val(),
+               "q4": $("#q4").val(),
+               "q5": $("#q5").val(),
+               "q6": $("#q6").val(),
+               "q7": $("#q7").val(),
+               "q8": $("#q8").val(),
+          
+        },
+        success: function(result,status) 
+        {
+          alert("TEST" , result); 
+          $("totalScore").html("Total score:" + result.score);
+          gradeMe(); 
+        }
+        
+      });//end ajax
+      
+function rightAnswer(index)//template for correct answers 
+{
+  $(`#q${index}Feedback`).html("Correct!");
+  $(`#q${index}Feedback`).attr("class", "bg-success text-white");
+  $(`#q${index}Feedback`).html("<img src='img/checkmark.png'>");
+  score += 20;
+}
+function rightAnswer2(index)//template for correct answers 
+{
+  $(`#q${index}Feedback`).html("Correct!");
+  $(`#q${index}Feedback`).attr("class", "bg-success text-white");
+  $(`#q${index}Feedback`).html("<img src='img/checkmark.png'>");
+  score += 12.5;
+}
+function wrongAnswer(index)//template for wrong answers 
+{
+  $(`#q${index}Feedback`).html("Incorrect!");
+  $(`#q${index}Feedback`).attr("class", "bg-warning text-white");
+  $(`#q${index}Feedback`).html("<img src='img/xmark.png'>");
+}
+function gradeMe()
+{
+// for(let i = 0 ; i < 7; i++)
+// {
+  
+// }
+  if(f1 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f2 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f3 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f4 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f5 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f6 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f7 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+  if(f8 = 0)
+  {
+    rightAnswer2(1); 
+  }
+  else
+    wrongAnswer;
+
+
+
+};//END GRADE ME
+  });//end submit button
+      
+      
+      if($(<%=score%> >= 80)
+      {
+          $("#totalResponse").html("Congrats you passed!"); 
+           $("#totalResponse").css("color" , "green"); 
+      }
+      else if($(<%=score%>).val() < 80)
+      {
+          $("#totalResponse").html("Sorry, try to do better!"); 
+          $("#totalResponse").css("color" , "red"); 
+      }
       
     })//ready
   </script>
@@ -24,16 +142,16 @@
   <h1 class="jumbotron"> US Geography Quiz <br> Express Version </h1>
   
   
-  
+  <form action="/gradeQuiz">
   <!--question 1-->
   <h3><span id="markImg1"></span> What is the capital of California?</h3>
-  <input type="text" id="q1" >
+  <input type="text" id="q1" name="q1" value="sacramento">
   <br><br>
   <div id="q1Feedback"></div>
   <br>
   <!--question 2-->
   <h3><span id="markImg2"></span>What is the longest river?</h3>
-    <select id="q2">
+    <select id="q2" name="q2">
         <option value="">Select One</option>
         <option value="ms">Mississippi</option>
         <option value="mo">Missouri</option>
@@ -45,16 +163,16 @@
   <br>
     <!--question 3-->
     <h3><span id="markImg3"></span>What presidents are carved into mount Rushmore?</h3>
-    <input type="checkbox" id="Jackson">   <label for="Jackson"> A. Jackson    </label> 
-    <input type="checkbox" id="Franklin">  <label for="Franklin">B. Franklin  </label>
-    <input type="checkbox" id="Jefferson"> <label for="Jefferson">T. Jefferson</label>
-    <input type="checkbox" id="Roosevelt"> <label for="Roosevelt">T. Roosevelt</label>
+    <input type="checkbox" id="Jackson" name="q3a">   <label for="Jackson"> A. Jackson    </label> 
+    <input type="checkbox" id="Franklin" name="q3b">  <label for="Franklin">B. Franklin  </label>
+    <input type="checkbox" id="Jefferson" name="q3c"> <label for="Jefferson">T. Jefferson</label>
+    <input type="checkbox" id="Roosevelt" name="q3d"> <label for="Roosevelt">T. Roosevelt</label>
     <br><br>
     <div id="q3Feedback"></div>
     <br>
   <!--question 4-->
 	<h3><span id="markImg4"></span>What is the smallest US state?</h3>
-	<div id="choices"> </div>
+	<input type="text" id="q4" name="q4" value="<%=questionArray%>">
     <br><br>
     <div id="q4Feedback"></div>
     <br>
@@ -103,8 +221,8 @@
     <button class="btn btn-outline-success"> Submit Quiz </button>
     <br><br>
 
-    <h2 id="totalScore" class="text-info"></h2>
-   
+    <h2 id="totalScore" class="text-info"><%=score%></h2>
+   </form>
 </body>
 </html>
 
